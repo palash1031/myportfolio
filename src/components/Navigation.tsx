@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { GrFan } from "react-icons/gr";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,7 +53,7 @@ const Navigation = () => {
           className="font-syne text-2xl font-bold tracking-tight opacity-0 animate-fade-up"
           style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}
         >
-          <span className="fluid-text">JD</span>
+          <span className="fluid-text"> <GrFan size={35} color="#2596be" className="animate-spin" /> </span>
         </button>
 
         {/* Nav Links */}
@@ -90,7 +91,7 @@ const Navigation = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span className="text-sm text-muted-foreground">Available for work</span>
+            <span className="text-sm text-muted-foreground">Probably awake right now</span>
           </div>
         </div>
       </div>

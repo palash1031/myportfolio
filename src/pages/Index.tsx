@@ -29,7 +29,7 @@ const Index = () => {
         >
           <div className="text-center space-y-4">
             <div className="relative">
-              <span className="text-4xl font-syne font-bold fluid-text">JD</span>
+              <span className="text-4xl font-syne font-bold fluid-text">PP</span>
               <div className="absolute -inset-4 bg-primary/20 rounded-full blur-xl animate-pulse-glow" />
             </div>
             <p className="text-muted-foreground font-space text-sm tracking-widest animate-pulse">

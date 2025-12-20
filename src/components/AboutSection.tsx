@@ -1,9 +1,8 @@
 import { Code2, Palette, Sparkles, Zap } from 'lucide-react';
 
 const skills = [
-  { icon: Code2, label: 'Development', description: 'React, TypeScript, Node.js' },
-  { icon: Palette, label: 'Design', description: 'UI/UX, Figma, Prototyping' },
-  { icon: Sparkles, label: 'Animation', description: 'Framer Motion, GSAP, CSS' },
+  { icon: Code2, label: 'Development', description: 'Full Stack Development!'},
+  { icon: Palette, label: 'Design', description: 'UI/UX, Figma, Canva, Graphic Design' },
   { icon: Zap, label: 'Performance', description: 'Optimization & Accessibility' },
 ];
 
@@ -19,24 +18,16 @@ const AboutSection = () => {
                 About Me
               </span>
               <h2 className="text-4xl md:text-5xl font-syne font-bold tracking-tight">
-                Crafting Digital <span className="fluid-text">Experiences</span>
+                I like developing <span className="fluid-text">Cool</span> Stuff
               </h2>
             </div>
 
             <div className="space-y-6 text-muted-foreground leading-relaxed">
               <p>
-                I'm a creative developer with a passion for building fluid, engaging web experiences. 
-                With over 5 years of experience, I specialize in creating interfaces that feel intuitive 
-                and delightful to use.
+                I'm a passionate Software Engineer with experience specializing in both front and back-end development! I'm interested in the intersection of finance and technology, hoping to end up at some sort of trading or quant adjacent role.
               </p>
               <p>
-                My approach combines technical expertise with design thinking—I believe the best 
-                digital products are those where form and function work in perfect harmony. Every 
-                animation, every interaction, every pixel serves a purpose.
-              </p>
-              <p>
-                When I'm not coding, you'll find me exploring new design trends, experimenting with 
-                creative coding, or sharing knowledge with the developer community.
+              When I'm not coding, you can find me studying, playing video games, taking photos, or cooking. I'm constantly learning and evolving my skills to stay at the forefront of industry trends and technological advancements.
               </p>
             </div>
 
@@ -47,12 +38,12 @@ const AboutSection = () => {
                 <p className="text-sm text-muted-foreground mt-1">Years Experience</p>
               </div>
               <div>
-                <span className="text-4xl font-syne font-bold fluid-text">50+</span>
-                <p className="text-sm text-muted-foreground mt-1">Projects Completed</p>
+                <span className="text-4xl font-syne font-bold fluid-text">AWS</span>
+                <p className="text-sm text-muted-foreground mt-1">Certified</p>
               </div>
               <div>
-                <span className="text-4xl font-syne font-bold fluid-text">30+</span>
-                <p className="text-sm text-muted-foreground mt-1">Happy Clients</p>
+                <span className="text-4xl font-syne font-bold fluid-text">IBM</span>
+                <p className="text-sm text-muted-foreground mt-1">Certified</p>
               </div>
             </div>
           </div>
@@ -89,7 +80,7 @@ const AboutSection = () => {
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-2">
-                {['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'PostgreSQL', 'Figma'].map(
+                {['Java', 'JavaScript', 'HTML', 'CSS', 'React', 'React Native', 'Next.js', 'Node.js', 'SQL', 'AWS', 'Agile', 'Git', 'GitHub', 'Figma', 'Flask', 'Django', 'Python', 'C', 'C++', ].map(
                   (tech) => (
                     <span
                       key={tech}

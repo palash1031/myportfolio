@@ -4,30 +4,48 @@ import { ExternalLink, Github } from 'lucide-react';
 const projects = [
   {
     id: 1,
-    title: 'Lumina',
-    category: 'Web Application',
-    description: 'A creative dashboard for managing digital assets with real-time collaboration features.',
-    tags: ['React', 'TypeScript', 'Framer Motion'],
+    title: 'J.P. Morgan',
+    category: 'Software Engineer Intern',
+    description: 'I have accepted an offer to work as a Software Engineer Intern at J.P. Morgan for the summer of 2026 in Tampa Florida, stay tuned to see what I accomplish!',
+    tags: ['N/A'],
     color: 'from-primary/20 to-accent/20',
-    year: '2024',
+    year: 'June 2026 - August 2026',
   },
   {
     id: 2,
-    title: 'Nebula',
-    category: 'E-Commerce',
-    description: 'Modern e-commerce platform with immersive product experiences and seamless checkout.',
-    tags: ['Next.js', 'Stripe', 'Tailwind'],
-    color: 'from-accent/20 to-fluid-peach/20',
-    year: '2024',
+    title: 'Amazon',
+    category: 'Software Developer Engineer Intern',
+    description: 'I have accepted an offer to work as a Software Developer Engineer Intern at Amazon in Seattle Washington, stay tuned to see what I accomplish!',
+    tags: ['N/A'],
+    color: 'from-primary/20 to-accent/20',
+    year: 'Jan 2026 - Present',
   },
   {
     id: 3,
-    title: 'Horizon',
-    category: 'Mobile App',
-    description: 'Fitness tracking app with fluid animations and personalized workout recommendations.',
-    tags: ['React Native', 'Node.js', 'AI'],
+    title: 'Handshake AI',
+    category: 'AI Engineer',
+    description: 'Trained and evaluated large-scale AI systems through structured experimentation and feedback integration, enabling faster iteration cycles and enhancing product performance for thousands of end-users.',
+    tags: ['AI', 'Machine Learning', 'Testing'],
+    color: 'from-accent/20 to-fluid-peach/20',
+    year: 'Aug 2025 - Present',
+  },
+  {
+    id: 4,
+    title: 'PeerPop',
+    category: 'Software Engineer',
+    description: 'Full-stack software engineer at PeerPop using React and JavaScript to address and resolve work tickets ranging from basic to intermediate complexity using an Agile engineering methodology. \n Developed features and bug fixes in a production React app for the platform. Improved component modularity, state handling, and responsiveness. Wrote unit tests and contributed to long-term codebase maintainability',
+    tags: ['React', 'React Native', 'Node.js', 'Google Firebase' ,'Agile'],
     color: 'from-fluid-peach/20 to-primary/20',
-    year: '2023',
+    year: 'December 2024 – August 2025',
+  },
+  {
+    id: 5,
+    title: 'Tech Vision',
+    category: 'Software Developer Intern',
+    description: 'Worked as a UI/UX engineer for Prachi Enterprises, developing a mobile app dashboard for inventory management using HTML, CSS, JavaScript, React, and the UnleashPOS framework. Integrated backend logic in Java with SQL-based queries to track and link customer purchase behavior to inventory and POS systems, enabling real-time data synchronization and transaction logging.',
+    tags: ['UI/UX', 'HTML', 'CSS', 'JavaScript', 'React', 'Java', 'SQL', 'Querying'],
+    color: 'from-fluid-peach/20 to-primary/20',
+    year: 'June 2024 - August 2024',
   },
 ];
 
@@ -40,10 +58,10 @@ const WorkSection = () => {
         {/* Section Header */}
         <div className="mb-20 space-y-4">
           <span className="text-primary font-space text-sm tracking-widest uppercase">
-            Selected Work
+            My J*bs
           </span>
           <h2 className="text-4xl md:text-6xl font-syne font-bold tracking-tight">
-            Featured <span className="fluid-text">Projects</span>
+            Work <span className="fluid-text">Experience</span>
           </h2>
         </div>
 
@@ -67,7 +85,7 @@ const WorkSection = () => {
                 />
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-                  {/* Project Info */}
+                  {/* Work Info */}
                   <div className="space-y-4 flex-1">
                     <div className="flex items-center gap-4">
                       <span className="text-muted-foreground font-space text-sm">
@@ -91,7 +109,7 @@ const WorkSection = () => {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 text-xs font-space bg-secondary/50 text-secondary-foreground rounded-full"
+                          className="px-3 py-1 text-xs font-space bg-secondary/50 text-secondary-foreground rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-300"
                         >
                           {tag}
                         </span>
@@ -105,34 +123,17 @@ const WorkSection = () => {
                       {String(index + 1).padStart(2, '0')}
                     </span>
 
-                    <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <button className="p-3 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300">
-                        <ExternalLink className="w-5 h-5" />
-                      </button>
-                      <button className="p-3 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300">
-                        <Github className="w-5 h-5" />
-                      </button>
-                    </div>
+                    
                   </div>
                 </div>
 
                 {/* Animated border */}
-                <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-primary/30 transition-colors duration-500" />
+                <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-primary/30 transition-colors duration-500 animate-pulse" />
               </div>
             </div>
           ))}
         </div>
 
-        {/* View All Link */}
-        <div className="mt-16 text-center">
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 text-primary font-syne font-semibold text-lg fluid-link"
-          >
-            View All Projects
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        </div>
       </div>
     </section>
   );

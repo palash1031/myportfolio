@@ -29,7 +29,7 @@ const HeroSection = () => {
                 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-syne font-bold tracking-tighter leading-none opacity-0 animate-text-reveal"
                 style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}
               >
-                <span className="block">John</span>
+                <span className="block">Palash</span>
               </h1>
             </div>
             <div className="overflow-hidden">
@@ -37,7 +37,7 @@ const HeroSection = () => {
                 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-syne font-bold tracking-tighter leading-none fluid-text opacity-0 animate-text-reveal"
                 style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}
               >
-                <span className="block">Doe</span>
+                <span className="block">Patel</span>
               </h1>
             </div>
           </div>
@@ -49,7 +49,7 @@ const HeroSection = () => {
                 className="text-xl md:text-2xl font-syne font-medium text-foreground/90 opacity-0 animate-fade-up"
                 style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}
               >
-                Creative Developer & Designer
+                Software Engineer
               </p>
             </div>
             <div className="overflow-hidden">
@@ -57,8 +57,7 @@ const HeroSection = () => {
                 className="text-muted-foreground text-base md:text-lg leading-relaxed opacity-0 animate-fade-up"
                 style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}
               >
-                I craft fluid digital experiences that blend aesthetics with functionality. 
-                Passionate about creating interfaces that feel alive and responsive.
+                I'm a Software Engineer passionate about creating impactful and aesthetic digital experiences.
               </p>
             </div>
           </div>

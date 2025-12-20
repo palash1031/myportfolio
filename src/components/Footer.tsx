@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="font-syne font-bold text-lg fluid-text">JD</span>
+              
               <span className="text-muted-foreground text-sm font-space">
                 © {currentYear} All rights reserved
               </span>
@@ -14,7 +14,7 @@ const Footer = () => {
   
             <div className="flex items-center gap-6">
               <span className="text-sm text-muted-foreground font-space">
-                Crafted with passion
+                Give me an internship pls
               </span>
               <div className="flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
