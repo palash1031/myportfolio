@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation';
 import FluidBackground from '@/components/FluidBackground';
 import HeroSection from '@/components/HeroSection';
 import WorkSection from '@/components/WorkSection';
+import ProjectsSection from '@/components/ProjectsSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
@@ -48,6 +49,7 @@ const Index = () => {
         <main className="relative z-10">
           <HeroSection />
           <WorkSection />
+          <ProjectsSection />
           <AboutSection />
           <ContactSection />
         </main>

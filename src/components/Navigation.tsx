@@ -53,7 +53,7 @@ const Navigation = () => {
           className="font-syne text-2xl font-bold tracking-tight opacity-0 animate-fade-up"
           style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}
         >
-          <span className="fluid-text"> <GrFan size={35} color="#2596be" className="animate-spin" /> </span>
+          <span className="fluid-text"> <GrFan size={35} color="#2596be" className="hover:animate-spin" /> </span>
         </button>
 
         {/* Nav Links */}

@@ -14,7 +14,7 @@ const Footer = () => {
   
             <div className="flex items-center gap-6">
               <span className="text-sm text-muted-foreground font-space">
-                Give me an internship pls
+                Hope you thought this was cool! 
               </span>
               <div className="flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
