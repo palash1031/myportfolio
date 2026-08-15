@@ -131,6 +131,10 @@ export default {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        "shimmer": {
+          "0%": { transform: "translateX(-120%) skewX(-20deg)" },
+          "100%": { transform: "translateX(220%) skewX(-20deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -143,6 +147,18 @@ export default {
         "scale-in": "scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "slide-in": "slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "gradient-shift": "gradient-shift 8s ease infinite",
+        "shimmer": "shimmer 1.2s ease-out",
+      },
+      backdropBlur: {
+        xs: "2px",
+        glass: "20px",
+        "glass-strong": "32px",
+      },
+      boxShadow: {
+        glass: "var(--glass-shadow)",
+        "glass-hover": "var(--glass-shadow-hover)",
+        glow: "var(--shadow-glow)",
+        soft: "var(--shadow-soft)",
       },
     },
   },

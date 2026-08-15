@@ -1,9 +1,7 @@
-import { useState } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
 import { Building2, Calendar, MapPin } from 'lucide-react';
-import { SiChase } from "react-icons/si";
-import { FaAmazon } from "react-icons/fa";
-import { SiHandshake } from "react-icons/si";
+import { SiChase } from 'react-icons/si';
+import { FaAmazon } from 'react-icons/fa';
+import { SiHandshake } from 'react-icons/si';
 
 const experiences = [
   {
@@ -78,100 +76,102 @@ const experiences = [
 ];
 
 const WorkExperienceSection = () => {
-  const [hoveredExperience, setHoveredExperience] = useState<number | null>(null);
-
   return (
-    <section id="work" className="py-16 px-6 relative">
+    <section id="work" className="relative px-6 py-24">
       <div className="container mx-auto max-w-6xl">
-        {/* Section Header */}
-        <div className="mb-20 space-y-4">
-          <span className="text-primary font-space text-sm tracking-widest uppercase">
+        {/* Section header */}
+        <div className="mb-16 space-y-4">
+          <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-primary">
             Career Journey
           </span>
-          <h2 className="text-4xl md:text-6xl font-syne font-bold tracking-tight">
+          <h2 className="font-syne text-4xl font-bold tracking-tight md:text-6xl">
             Work <span className="fluid-text">Experience</span>
           </h2>
         </div>
 
-        {/* Experience Timeline */}
+        {/* Timeline */}
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-accent/30 to-transparent transform md:-translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-primary/60 via-accent/40 to-transparent md:left-1/2 md:-translate-x-1/2" />
 
-          <div className="space-y-12">
+          <div className="space-y-10">
             {experiences.map((experience, index) => (
               <div
                 key={experience.id}
-                className={`relative flex flex-col md:flex-row gap-8 ${
+                className={`group relative flex flex-col gap-8 md:flex-row ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
-                onMouseEnter={() => setHoveredExperience(experience.id)}
-                onMouseLeave={() => setHoveredExperience(null)}
               >
-                {/* Timeline dot */}
-                <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 border-4 border-background z-10 transition-transform duration-300 hover:scale-150" />
+                {/* Timeline node */}
+                <div className="absolute left-0 top-8 z-10 -translate-x-1/2 md:left-1/2">
+                  <span className="glass flex h-5 w-5 items-center justify-center rounded-full transition-transform duration-500 group-hover:scale-125">
+                    <span className="h-2 w-2 rounded-full bg-gradient-to-br from-primary to-accent" />
+                  </span>
+                </div>
 
-                {/* Content Card */}
-                <div className={`ml-8 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'}`}>
-                  <div
-                    className={`group relative overflow-hidden rounded-2xl p-6 md:p-8 transition-all duration-500 cursor-pointer border border-border/50 ${
-                      hoveredExperience === experience.id ? 'bg-card scale-[1.02]' : 'bg-card/50'
-                    }`}
-                  >
-                    {/* Background gradient */}
+                {/* Card */}
+                <div
+                  className={`ml-8 md:ml-0 md:w-1/2 ${
+                    index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'
+                  }`}
+                >
+                  <article className="glass glass-hover relative cursor-default overflow-hidden rounded-3xl p-6 md:p-8">
+                    {/* Tint that warms up on hover */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${experience.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                      className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${experience.color} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
                     />
 
                     <div className="relative z-10 space-y-4">
-                      {/* Company & Role */}
+                      {/* Company */}
                       <div>
-                        <div className="flex items-center gap-2 text-primary mb-1">
-                          {experience.logo ? (
-                            <experience.logo className="w-5 h-5" />
-                          ) : (
-                            <Building2 className="w-4 h-4" />
-                          )}
-                          <span className="font-space text-sm font-medium">{experience.company}</span>
+                        <div className="mb-2 flex items-center gap-2.5">
+                          <span className="glass-subtle flex h-9 w-9 items-center justify-center rounded-xl text-primary">
+                            {experience.logo ? (
+                              <experience.logo className="h-4 w-4" />
+                            ) : (
+                              <Building2 className="h-4 w-4" />
+                            )}
+                          </span>
+                          <span className="font-space text-sm font-medium text-primary">
+                            {experience.company}
+                          </span>
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-syne font-bold tracking-tight group-hover:text-primary transition-colors duration-300">
+                        <h3 className="font-syne text-2xl font-bold tracking-tight transition-colors duration-300 group-hover:text-primary md:text-3xl">
                           {experience.role}
                         </h3>
                       </div>
 
-                      {/* Meta info */}
-                      <div className="flex flex-wrap gap-4 text-muted-foreground text-sm font-space">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
+                      {/* Meta */}
+                      <div className="flex flex-wrap gap-x-4 gap-y-2 font-space text-sm text-muted-foreground">
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="h-3.5 w-3.5" />
                           {experience.period}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="h-3.5 w-3.5" />
                           {experience.location}
                         </span>
                       </div>
 
-                      {/* Description */}
-                      <p className="text-muted-foreground leading-relaxed">
+                      <p className="leading-relaxed text-muted-foreground">
                         {experience.description}
                       </p>
 
-                      {/* Technologies */}
-                      <div className="flex flex-wrap gap-2 pt-2">
+                      {/* Tech chips */}
+                      <div className="flex flex-wrap gap-2 pt-1">
                         {experience.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-3 py-1 text-xs font-space bg-primary/10 text-primary rounded-full border border-primary/20"
+                            className="glass-subtle rounded-full px-3 py-1 font-space text-xs text-foreground/80"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </div>
 
-                {/* Spacer for alternating layout */}
+                {/* Spacer for the alternating layout */}
                 <div className="hidden md:block md:w-1/2" />
               </div>
             ))}

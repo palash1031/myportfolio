@@ -1,32 +1,34 @@
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
-  
-    return (
-      <footer className="py-8 px-6 border-t border-border/50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              
-              <span className="text-muted-foreground text-sm font-space">
-                © {currentYear} All rights reserved
-              </span>
-            </div>
-  
-            <div className="flex items-center gap-6">
-              <span className="text-sm text-muted-foreground font-space">
-                Hope you thought this was cool! 
-              </span>
-              <div className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" style={{ animationDelay: '0.2s' }} />
-                <span className="w-2 h-2 rounded-full bg-fluid-peach animate-pulse" style={{ animationDelay: '0.4s' }} />
-              </div>
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="relative px-6 pb-8 pt-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="glass flex flex-col items-center justify-between gap-4 rounded-3xl px-6 py-5 md:flex-row">
+          <span className="font-space text-sm text-muted-foreground">
+            © {currentYear} All rights reserved
+          </span>
+
+          <div className="flex items-center gap-4">
+            <span className="font-space text-sm text-muted-foreground">
+              Hope you thought this was cool!
+            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
+              <span
+                className="h-2 w-2 animate-pulse rounded-full bg-fluid-cyan"
+                style={{ animationDelay: '0.2s' }}
+              />
+              <span
+                className="h-2 w-2 animate-pulse rounded-full bg-accent"
+                style={{ animationDelay: '0.4s' }}
+              />
             </div>
           </div>
         </div>
-      </footer>
-    );
-  };
-  
-  export default Footer;
-  
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

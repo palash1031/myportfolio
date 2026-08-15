@@ -53,7 +53,7 @@ const ContactSection = () => {
       if (result.success) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
-        
+
         // Reset status after 5 seconds
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
@@ -62,7 +62,7 @@ const ContactSection = () => {
     } catch (error) {
       console.error('Failed to send message:', error);
       setSubmitStatus('error');
-      
+
       // Reset status after 5 seconds
       setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
@@ -70,66 +70,74 @@ const ContactSection = () => {
     }
   };
 
+  const fieldClass =
+    'glass-input w-full rounded-2xl px-4 py-3 font-space text-foreground';
+
   return (
-    <section id="contact" className="py-32 px-6 relative">
+    <section id="contact" className="relative px-6 py-24">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Left Column */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left column */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <span className="text-primary font-space text-sm tracking-widest uppercase">
+              <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-accent">
                 Get in Touch
               </span>
-              <h2 className="text-4xl md:text-6xl font-syne font-bold tracking-tight">
-                Let's Create <span className="fluid-text">Together</span>
+              <h2 className="font-syne text-4xl font-bold tracking-tight md:text-6xl">
+                Let&apos;s Create <span className="fluid-text">Together</span>
               </h2>
             </div>
 
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-              Have a project in mind? I'd love to hear about it. Let's discuss how we can 
+            <p className="max-w-md text-lg leading-relaxed text-muted-foreground">
+              Have a project in mind? I&apos;d love to hear about it. Let&apos;s discuss how we can
               bring your ideas to life with fluid, engaging design.
             </p>
 
-            {/* Contact Info */}
-            <div className="space-y-4 pt-4">
+            {/* Contact details */}
+            <div className="space-y-3">
               <a
                 href="mailto:palash1031@gmail.com"
-                className="flex items-center gap-4 text-foreground hover:text-primary transition-colors duration-300"
+                className="glass glass-hover group flex items-center gap-4 rounded-2xl p-4"
               >
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <span className="font-space">palash1031@gmail.com</span>
+                <span className="glass-subtle flex h-11 w-11 items-center justify-center rounded-xl text-primary">
+                  <Mail className="h-5 w-5" />
+                </span>
+                <span className="font-space text-foreground transition-colors duration-300 group-hover:text-primary">
+                  palash1031@gmail.com
+                </span>
               </a>
-              <div className="flex items-center gap-4 text-muted-foreground">
-                <div className="p-3 rounded-full bg-secondary/50">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <span className="font-space">Atlanta, GA</span>
+
+              <div className="glass flex items-center gap-4 rounded-2xl p-4">
+                <span className="glass-subtle flex h-11 w-11 items-center justify-center rounded-xl text-accent">
+                  <MapPin className="h-5 w-5" />
+                </span>
+                <span className="font-space text-muted-foreground">Atlanta, GA</span>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex gap-4 pt-8">
+            {/* Socials */}
+            <div className="flex gap-3 pt-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   aria-label={social.label}
-                  className="p-4 rounded-full bg-card border border-border hover:bg-primary hover:border-primary hover:text-primary-foreground transition-all duration-300 group"
+                  className="glass glass-hover group flex h-14 w-14 items-center justify-center rounded-2xl"
                 >
-                  <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <social.icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-primary" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Right Column - Contact Form */}
-          <div className="glass-card rounded-3xl p-8 md:p-10">
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid sm:grid-cols-2 gap-6">
+          {/* Right column — form */}
+          <div className="glass-strong rounded-[2rem] p-6 md:p-10">
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-space text-foreground/80">
+                  <label htmlFor="name" className="font-space text-sm text-foreground/80">
                     Name
                   </label>
                   <input
@@ -139,11 +147,11 @@ const ContactSection = () => {
                     onChange={handleChange}
                     placeholder="John Smith"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition-all duration-300 font-space"
+                    className={fieldClass}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-space text-foreground/80">
+                  <label htmlFor="email" className="font-space text-sm text-foreground/80">
                     Email
                   </label>
                   <input
@@ -153,13 +161,13 @@ const ContactSection = () => {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition-all duration-300 font-space"
+                    className={fieldClass}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-space text-foreground/80">
+                <label htmlFor="subject" className="font-space text-sm text-foreground/80">
                   Subject
                 </label>
                 <input
@@ -169,12 +177,12 @@ const ContactSection = () => {
                   onChange={handleChange}
                   placeholder="Project Inquiry"
                   required
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition-all duration-300 font-space"
+                  className={fieldClass}
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-space text-foreground/80">
+                <label htmlFor="message" className="font-space text-sm text-foreground/80">
                   Message
                 </label>
                 <textarea
@@ -184,19 +192,20 @@ const ContactSection = () => {
                   onChange={handleChange}
                   placeholder="Tell me about your project..."
                   required
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none transition-all duration-300 font-space resize-none"
+                  className={`${fieldClass} resize-none`}
                 />
               </div>
 
-              {/* Status Messages */}
+              {/* Status messages */}
               {submitStatus === 'success' && (
-                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-space">
-                  ✓ Message sent successfully! I'll get back to you soon.
+                <div className="glass-subtle rounded-2xl border-emerald-500/30 p-4 font-space text-sm text-emerald-500">
+                  ✓ Message sent successfully! I&apos;ll get back to you soon.
                 </div>
               )}
               {submitStatus === 'error' && (
-                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-space">
-                  ✗ Failed to send message. Please try again or email me directly at palash1031@gmail.com
+                <div className="glass-subtle rounded-2xl border-red-500/30 p-4 font-space text-sm text-red-500">
+                  ✗ Failed to send message. Please try again or email me directly at
+                  palash1031@gmail.com
                 </div>
               )}
 
@@ -205,13 +214,16 @@ const ContactSection = () => {
                 disabled={isSubmitting}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="w-full py-4 px-8 bg-primary text-primary-foreground font-syne font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_hsl(var(--primary)/0.4)] relative group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="glass-button w-full rounded-2xl px-8 py-4 font-syne font-semibold disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   {isSubmitting ? 'Sending...' : 'Send Message'}
-                  <Send className={`w-4 h-4 transition-transform duration-300 ${isHovered && !isSubmitting ? 'translate-x-1 -translate-y-1' : ''}`} />
+                  <Send
+                    className={`h-4 w-4 transition-transform duration-300 ${
+                      isHovered && !isSubmitting ? '-translate-y-1 translate-x-1' : ''
+                    }`}
+                  />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </form>
           </div>

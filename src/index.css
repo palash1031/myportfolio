@@ -4,55 +4,116 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   DESIGN TOKENS
+   Light is the default on :root, dark is applied via the `.dark` class on
+   <html> (see useTheme). Every glass surface reads from the --glass-* vars,
+   so both themes stay consistent without duplicating component styles.
+   ========================================================================== */
+
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 40 20% 92%;
+    /* ---------- Light theme ---------- */
+    --background: 216 45% 97%;
+    --foreground: 222 32% 13%;
 
-    --card: 0 0% 7%;
-    --card-foreground: 40 20% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 32% 13%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 40 20% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 32% 13%;
 
-    --primary: 210 90% 60%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 214 88% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 40 20% 92%;
+    --secondary: 216 32% 93%;
+    --secondary-foreground: 222 30% 22%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 210 10% 55%;
+    --muted: 216 28% 92%;
+    --muted-foreground: 220 14% 40%;
 
-    --accent: 190 95% 65%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 14 82% 58%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 210 90% 60%;
+    --border: 216 28% 86%;
+    --input: 216 28% 88%;
+    --ring: 214 88% 50%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
-    /* Custom fluid design tokens */
-    --fluid-cream: 210 30% 96%;
-    --fluid-blue: 210 90% 60%;
-    --fluid-cyan: 190 95% 70%;
-    --fluid-charcoal: 0 0% 8%;
-    --fluid-deep: 0 0% 4%;
-    --fluid-peach: 25 85% 75%;
-    --fluid-coral: 15 80% 70%;
-    
+    /* ---------- Aurora palette (warm: blue + peach/coral) ---------- */
+    --fluid-blue: 214 88% 56%;
+    --fluid-cyan: 194 88% 58%;
+    --fluid-peach: 26 92% 68%;
+    --fluid-coral: 8 84% 64%;
+    --fluid-cream: 32 60% 96%;
+    --fluid-charcoal: 222 24% 16%;
+    --fluid-deep: 224 40% 8%;
+
+    /* Aurora blob strength — light needs more punch to read through white glass */
+    --aurora-opacity: 0.55;
+    --aurora-blur: 90px;
+
+    /* ---------- Glass surfaces ---------- */
+    --glass-blur: 20px;
+    --glass-blur-strong: 32px;
+    --glass-blur-subtle: 12px;
+
+    --glass-bg: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.42) 100%
+    );
+    --glass-bg-hover: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 255, 255, 0.6) 100%
+    );
+    --glass-bg-strong: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
+    --glass-bg-subtle: rgba(255, 255, 255, 0.45);
+
+    --glass-border: rgba(255, 255, 255, 0.85);
+    --glass-border-hover: rgba(255, 255, 255, 1);
+
+    /* Outer lift + inset specular highlight along the top edge */
+    --glass-shadow: 0 10px 40px -12px rgba(18, 38, 84, 0.18),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+    --glass-shadow-hover: 0 22px 60px -16px rgba(18, 38, 84, 0.28),
+      inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    --glass-shadow-strong: 0 18px 50px -14px rgba(18, 38, 84, 0.22),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-primary: linear-gradient(
+      120deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--fluid-cyan)) 45%,
+      hsl(var(--accent)) 100%
+    );
+    /* Headings need deeper stops than buttons — a mid-cyan reads too faint
+       against the light aurora, so text gets its own darker ramp. */
+    --gradient-text: linear-gradient(
+      120deg,
+      hsl(214 88% 44%) 0%,
+      hsl(196 88% 36%) 45%,
+      hsl(6 78% 50%) 100%
+    );
+
     --gradient-blob: radial-gradient(ellipse at center, hsl(var(--primary) / 0.3) 0%, transparent 70%);
     --gradient-glow: radial-gradient(ellipse at center, hsl(var(--accent) / 0.2) 0%, transparent 60%);
-    
-    /* Shadows */
-    --shadow-glow: 0 0 60px hsl(var(--primary) / 0.3);
-    --shadow-soft: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+
+    --shadow-glow: 0 0 60px hsl(var(--primary) / 0.35);
+    --shadow-soft: 0 25px 50px -12px hsl(222 40% 20% / 0.18);
+
+    /* Cursor spotlight strength */
+    --cursor-glow: hsl(var(--primary) / 0.1);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -62,6 +123,86 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* ---------- Dark theme ---------- */
+    --background: 224 42% 6%;
+    --foreground: 32 24% 94%;
+
+    --card: 224 32% 11%;
+    --card-foreground: 32 24% 94%;
+
+    --popover: 224 32% 11%;
+    --popover-foreground: 32 24% 94%;
+
+    --primary: 210 92% 64%;
+    --primary-foreground: 224 42% 6%;
+
+    --secondary: 224 26% 16%;
+    --secondary-foreground: 32 24% 94%;
+
+    --muted: 224 24% 18%;
+    --muted-foreground: 218 16% 66%;
+
+    --accent: 16 90% 68%;
+    --accent-foreground: 224 42% 6%;
+
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 224 22% 22%;
+    --input: 224 22% 22%;
+    --ring: 210 92% 64%;
+
+    --fluid-blue: 210 92% 62%;
+    --fluid-cyan: 190 92% 62%;
+    --fluid-peach: 26 92% 72%;
+    --fluid-coral: 10 86% 68%;
+    --fluid-cream: 32 40% 92%;
+    --fluid-charcoal: 224 30% 12%;
+    --fluid-deep: 224 42% 5%;
+
+    --aurora-opacity: 0.42;
+    --aurora-blur: 100px;
+
+    --glass-bg: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.035) 100%
+    );
+    --glass-bg-hover: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.07) 100%
+    );
+    --glass-bg-strong: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    );
+    --glass-bg-subtle: rgba(255, 255, 255, 0.055);
+
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-border-hover: rgba(255, 255, 255, 0.26);
+
+    --glass-shadow: 0 16px 48px -16px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    --glass-shadow-hover: 0 28px 70px -20px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+    --glass-shadow-strong: 0 24px 60px -18px rgba(0, 0, 0, 0.75),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+
+    --shadow-soft: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    --cursor-glow: hsl(var(--primary) / 0.14);
+
+    /* On dark, the bright ramp already has plenty of contrast */
+    --gradient-text: linear-gradient(
+      120deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--fluid-cyan)) 45%,
+      hsl(var(--accent)) 100%
+    );
   }
 }
 
@@ -77,27 +218,184 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Space Grotesk', sans-serif;
+    /* Base wash behind the aurora so the page never shows flat paint */
+    background-image: radial-gradient(
+        ellipse 80% 60% at 15% 0%,
+        hsl(var(--fluid-blue) / 0.12) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 60% at 90% 100%,
+        hsl(var(--fluid-peach) / 0.12) 0%,
+        transparent 60%
+      );
+    background-attachment: fixed;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Syne', sans-serif;
   }
 
   ::selection {
-    background: hsl(var(--primary) / 0.3);
+    background: hsl(var(--primary) / 0.28);
     color: hsl(var(--foreground));
+  }
+
+  /* Glassy scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--foreground) / 0.18);
+    border: 2px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.45);
+    background-clip: content-box;
+  }
+
+  /* Keep focus rings visible on glass */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary) / 0.7);
+    outline-offset: 2px;
   }
 }
 
+/* ==========================================================================
+   GLASS COMPONENTS
+   ========================================================================== */
+
 @layer components {
-  .fluid-text {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-primary);
+  /* Standard frosted panel */
+  .glass {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 
-  .fluid-blob {
-    filter: blur(80px);
-    animation: blob-morph 20s ease-in-out infinite;
+  /* Heavier frost — navigation, forms, anything that must stay readable */
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(200%);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(200%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow-strong);
+  }
+
+  /* Barely-there frost — chips, tags, nested elements inside a glass panel */
+  .glass-subtle {
+    background: var(--glass-bg-subtle);
+    -webkit-backdrop-filter: blur(var(--glass-blur-subtle)) saturate(150%);
+    backdrop-filter: blur(var(--glass-blur-subtle)) saturate(150%);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+  }
+
+  /* Interactive lift — compose with .glass or .glass-subtle */
+  .glass-hover {
+    transition: background 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-hover:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  /* Form fields that sit on top of a glass panel */
+  .glass-input {
+    background: var(--glass-bg-subtle);
+    -webkit-backdrop-filter: blur(var(--glass-blur-subtle));
+    backdrop-filter: blur(var(--glass-blur-subtle));
+    border: 1px solid var(--glass-border);
+    transition: border-color 300ms ease, box-shadow 300ms ease, background 300ms ease;
+  }
+
+  .glass-input::placeholder {
+    color: hsl(var(--muted-foreground) / 0.75);
+  }
+
+  .glass-input:focus {
+    outline: none;
+    border-color: hsl(var(--primary) / 0.6);
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.16);
+  }
+
+  /* Solid-feel gradient button with a glass sheen on top */
+  .glass-button {
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    color: hsl(0 0% 100%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 8px 28px -8px hsl(var(--primary) / 0.55),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 300ms ease, background-position 600ms ease;
+  }
+
+  .glass-button:hover {
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -10px hsl(var(--primary) / 0.65),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-button:active {
+    transform: translateY(0);
+  }
+
+  /* Legacy alias — existing markup that still says .glass-card keeps working */
+  .glass-card {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Gradient text */
+  .fluid-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-text);
+    background-size: 200% 200%;
+    animation: gradient-shift 10s ease infinite;
+  }
+
+  /* Aurora blobs behind the glass */
+  .aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(var(--aurora-blur));
+    opacity: var(--aurora-opacity);
+    animation: blob-morph 24s ease-in-out infinite;
+    will-change: transform, border-radius;
+  }
+
+  /* Fine noise texture — keeps large glass areas from banding */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   }
 
   .fluid-link {
@@ -117,16 +415,16 @@
   .magnetic-btn {
     @apply relative transition-transform duration-300 ease-out;
   }
-
-  .glass-card {
-    @apply backdrop-blur-xl border border-border/50;
-    background: hsl(var(--card) / 0.6);
-  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Rounded corners that match the glass radius scale */
+  .rounded-glass {
+    border-radius: var(--radius);
   }
 
   .animate-delay-100 { animation-delay: 100ms; }
@@ -138,7 +436,10 @@
   .animate-delay-1000 { animation-delay: 1000ms; }
 }
 
-/* Blob morphing animation */
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
 @keyframes blob-morph {
   0%, 100% {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
@@ -146,15 +447,15 @@
   }
   25% {
     border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-    transform: translate(20px, -30px) rotate(90deg) scale(1.1);
+    transform: translate(30px, -40px) rotate(90deg) scale(1.1);
   }
   50% {
     border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
-    transform: translate(-20px, 20px) rotate(180deg) scale(0.95);
+    transform: translate(-30px, 30px) rotate(180deg) scale(0.95);
   }
   75% {
     border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%;
-    transform: translate(10px, -10px) rotate(270deg) scale(1.05);
+    transform: translate(15px, -15px) rotate(270deg) scale(1.05);
   }
 }
 
@@ -181,11 +482,11 @@
 @keyframes text-reveal {
   0% {
     opacity: 0;
-    transform: translateY(100%) rotateX(-90deg);
+    transform: translateY(100%);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) rotateX(0deg);
+    transform: translateY(0);
   }
 }
 
@@ -231,15 +532,64 @@
   }
 }
 
-/* Custom cursor styles */
+/* Sheen that sweeps across a glass surface on hover */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-20deg);
+  }
+}
+
+/* Cursor spotlight */
 .cursor-glow {
   pointer-events: none;
   position: fixed;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 60%);
+  background: radial-gradient(circle, var(--cursor-glow) 0%, transparent 62%);
   transform: translate(-50%, -50%);
   z-index: 0;
   transition: opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY / FALLBACKS
+   ========================================================================== */
+
+/* Browsers without backdrop-filter get an opaque panel instead of a
+   see-through one, so text never lands on an unreadable background. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass,
+  .glass-card,
+  .glass-strong,
+  .glass-subtle,
+  .glass-input {
+    background: hsl(var(--card) / 0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Entrance animations use opacity-0 + fill-mode, so force them visible */
+  .animate-fade-up,
+  .animate-text-reveal,
+  .animate-scale-in,
+  .animate-slide-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

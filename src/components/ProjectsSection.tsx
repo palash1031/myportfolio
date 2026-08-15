@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
-
 const projects = [
   {
     id: 1,
@@ -41,90 +38,77 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-
   return (
-    <section id="work" className="py-16 px-6 relative">
+    <section id="projects" className="relative px-6 py-24">
       <div className="container mx-auto max-w-6xl">
-        {/* Section Header */}
-        <div className="mb-20 space-y-4 text-end block">
-          <span className="text-primary font-space text-sm tracking-widest uppercase">
+        {/* Section header */}
+        <div className="mb-16 space-y-4 md:text-right">
+          <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-accent">
             Cool Stuff
           </span>
-          <h2 className="text-4xl md:text-6xl font-syne font-bold tracking-tight">
+          <h2 className="font-syne text-4xl font-bold tracking-tight md:text-6xl">
             My <span className="fluid-text">Projects</span>
           </h2>
         </div>
 
-        {/* Projects Grid */}
-        <div className="space-y-8">
+        {/* Project panels */}
+        <div className="space-y-6">
           {projects.map((project, index) => (
-            <div
+            <article
               key={project.id}
-              className="group relative"
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
+              className="glass glass-hover group relative overflow-hidden rounded-[2rem] p-8 md:p-12"
             >
+              {/* Hover tint */}
               <div
-                className={`relative overflow-hidden rounded-3xl p-8 md:p-12 transition-all duration-700 cursor-pointer border border-border/50 ${
-                  hoveredProject === project.id ? 'bg-card' : 'bg-card/50'
-                }`}
-              >
-                {/* Background gradient */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
-                />
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 transition-opacity duration-700 group-hover:opacity-100`}
+              />
 
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-                  {/* Work Info */}
-                  <div className="space-y-4 flex-1">
-                    <div className="flex items-center gap-4">
-                      <span className="text-muted-foreground font-space text-sm">
-                        {project.year}
-                      </span>
-                      <span className="w-12 h-px bg-border" />
-                      <span className="text-muted-foreground font-space text-sm">
-                        {project.category}
-                      </span>
-                    </div>
+              {/* Sheen sweep on hover */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute inset-y-0 -left-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:animate-[shimmer_1.2s_ease-out] group-hover:opacity-100" />
+              </div>
 
-                    <h3 className="text-3xl md:text-5xl font-syne font-bold tracking-tight group-hover:text-primary transition-colors duration-300">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-muted-foreground max-w-lg leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 text-xs font-space bg-secondary/50 text-secondary-foreground rounded-full hover:bg-primary/10 hover:text-primary transition-colors duration-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+                {/* Info */}
+                <div className="flex-1 space-y-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="font-space text-sm text-muted-foreground">
+                      {project.year}
+                    </span>
+                    <span className="h-px w-8 bg-border" />
+                    <span className="font-space text-sm text-accent">{project.category}</span>
                   </div>
 
-                  {/* Project Number & Actions */}
-                  <div className="flex md:flex-col items-center gap-6">
-                    <span className="text-7xl md:text-9xl font-syne font-bold text-border/50 group-hover:text-primary/20 transition-colors duration-300">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
+                  <h3 className="font-syne text-3xl font-bold tracking-tight transition-colors duration-300 group-hover:text-primary md:text-5xl">
+                    {project.title}
+                  </h3>
 
-                    
+                  <p className="max-w-lg leading-relaxed text-muted-foreground">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="glass-subtle rounded-full px-3 py-1 font-space text-xs text-foreground/80 transition-colors duration-300 hover:text-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                {/* Animated border */}
-                <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-primary/30 transition-colors duration-500 animate-pulse" />
+                {/* Index watermark */}
+                <div className="flex items-center md:flex-col">
+                  <span className="font-syne text-7xl font-bold text-foreground/[0.07] transition-colors duration-500 group-hover:text-primary/25 md:text-9xl">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-
       </div>
     </section>
   );
