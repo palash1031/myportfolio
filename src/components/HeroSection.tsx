@@ -8,10 +8,10 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center px-6 pt-28 pb-20"
+      className="relative flex min-h-screen scroll-mt-24 items-center justify-center px-5 pb-16 pt-24 md:px-6 md:pb-20 md:pt-28"
     >
       <div className="container mx-auto max-w-6xl">
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
           {/* Intro chip */}
           <div
             className="glass inline-flex animate-fade-up items-center gap-2 rounded-full px-4 py-2 opacity-0"
@@ -45,7 +45,7 @@ const HeroSection = () => {
 
           {/* Role & description on a glass slab */}
           <div
-            className="glass max-w-xl animate-fade-up space-y-4 rounded-3xl p-6 opacity-0 md:p-8"
+            className="glass max-w-xl animate-fade-up space-y-3 rounded-3xl p-5 opacity-0 md:space-y-4 md:p-8"
             style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}
           >
             <div className="flex items-center gap-3">
@@ -61,15 +61,16 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
+          {/* Split evenly on a phone so neither button wraps to its own row */}
           <div
-            className="flex animate-fade-up flex-wrap gap-4 pt-2 opacity-0"
+            className="flex animate-fade-up gap-3 pt-2 opacity-0 sm:flex-wrap sm:gap-4"
             style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}
           >
             <button
               onClick={() => scrollTo('work')}
-              className="glass-button group rounded-full px-8 py-4 font-syne font-semibold"
+              className="glass-button group flex-1 rounded-full px-5 py-3.5 font-syne text-sm font-semibold sm:flex-none sm:px-8 sm:py-4 sm:text-base"
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2">
                 View My Work
                 <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
               </span>
@@ -77,9 +78,9 @@ const HeroSection = () => {
 
             <button
               onClick={() => scrollTo('contact')}
-              className="glass glass-hover group rounded-full px-8 py-4 font-syne font-semibold text-foreground"
+              className="glass glass-hover group flex-1 rounded-full px-5 py-3.5 font-syne text-sm font-semibold text-foreground sm:flex-none sm:px-8 sm:py-4 sm:text-base"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2">
                 Get in Touch
                 <Mail className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
               </span>

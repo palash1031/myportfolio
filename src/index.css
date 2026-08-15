@@ -112,8 +112,12 @@
     --shadow-glow: 0 0 60px hsl(var(--primary) / 0.35);
     --shadow-soft: 0 25px 50px -12px hsl(222 40% 20% / 0.18);
 
-    /* Cursor spotlight strength */
-    --cursor-glow: hsl(var(--primary) / 0.1);
+    /* Cursor spotlight. Warm on purpose: the aurora's mass is cool (a 38rem
+       blue blob plus a 30rem cyan one), so a warm glow is the one hue that
+       stays legible against the dominant field at low alpha. */
+    --cursor-glow-core: hsl(var(--fluid-coral) / 0.25);
+    --cursor-glow-mid: hsl(var(--fluid-peach) / 0.16);
+    --cursor-glow-edge: hsl(var(--fluid-peach) / 0.11);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -194,7 +198,12 @@
       inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
 
     --shadow-soft: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-    --cursor-glow: hsl(var(--primary) / 0.14);
+
+    /* Runs a touch stronger than light mode because it blends with `screen`,
+       which adds light rather than laying colour over the backdrop. */
+    --cursor-glow-core: hsl(var(--fluid-coral) / 0.2);
+    --cursor-glow-mid: hsl(var(--fluid-peach) / 0.11);
+    --cursor-glow-edge: hsl(var(--fluid-peach) / 0.04);
 
     /* On dark, the bright ramp already has plenty of contrast */
     --gradient-text: linear-gradient(
@@ -283,10 +292,41 @@
   /* Standard frosted panel */
   .glass {
     background: var(--glass-bg);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate, 180%));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate, 180%));
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
+  }
+
+  /* Scroll-reactive surface, driven by --nav-progress (0 → 1).
+     Blur alone cannot carry this effect here: the aurora behind the bar is
+     already blurred to 90px+, so blurring it further is imperceptible. The
+     veil is the part the eye actually reads — it thickens the fill over any
+     backdrop, smooth or not. hsl(var(--card)) keeps it theme-aware, so the
+     bar darkens in dark mode and whitens in light. Must come after .glass
+     to win the background-image cascade. */
+  .glass-solidify {
+    /* Thinner resting fill than a normal panel, so there is real range to
+       travel — the veil below builds it back up to fully solid. */
+    --glass-bg: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.18) 100%
+    );
+
+    background-image: linear-gradient(
+        hsl(var(--card) / calc(var(--nav-progress, 0) * 0.72)),
+        hsl(var(--card) / calc(var(--nav-progress, 0) * 0.72))
+      ),
+      var(--glass-bg);
+  }
+
+  .dark .glass-solidify {
+    --glass-bg: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
   }
 
   /* Heavier frost — navigation, forms, anything that must stay readable */
@@ -427,6 +467,44 @@
     border-radius: var(--radius);
   }
 
+  /* Swipeable rows: hide the bar, keep the scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Keeps the bottom tab bar clear of the iPhone home indicator */
+  .pb-safe {
+    padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
+  }
+
+  .mb-safe {
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Reserve room for the fixed mobile tab bar so the footer stays reachable */
+  .pb-tabbar {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+
+  /* Smooth height animation without measuring: 0fr -> 1fr on a grid row */
+  .collapse-grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 350ms ease;
+    opacity: 0;
+  }
+
+  .collapse-grid[data-open='true'] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
   .animate-delay-100 { animation-delay: 100ms; }
   .animate-delay-200 { animation-delay: 200ms; }
   .animate-delay-300 { animation-delay: 300ms; }
@@ -546,13 +624,32 @@
 .cursor-glow {
   pointer-events: none;
   position: fixed;
-  width: 500px;
-  height: 500px;
+  width: 560px;
+  height: 560px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--cursor-glow) 0%, transparent 62%);
+  /* Multi-stop so the alpha ramp eases out. A plain two-stop radial changes
+     slope abruptly and leaves a faint visible ring, the same artifact that
+     produced the seams in the focal-blur bands. */
+  background: radial-gradient(
+    circle,
+    var(--cursor-glow-core) 0%,
+    var(--cursor-glow-mid) 32%,
+    var(--cursor-glow-edge) 52%,
+    transparent 70%
+  );
   transform: translate(-50%, -50%);
-  z-index: 0;
+  /* Above the aurora blobs (which are z-index: auto) but still inside the
+     z-0 background layer, so it never reaches page content at z-10. */
+  z-index: 1;
   transition: opacity 0.3s ease;
+}
+
+/* Adds light instead of painting colour over the backdrop — this is what makes
+   it read as illumination. Deliberately dark-only: `screen` against a near-white
+   background is a no-op, so light mode keeps normal alpha blending for a warm
+   tint. `screen` over `plus-lighter` for universal browser support. */
+.dark .cursor-glow {
+  mix-blend-mode: screen;
 }
 
 /* ==========================================================================

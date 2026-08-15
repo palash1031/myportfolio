@@ -1,3 +1,5 @@
+import { useRef, useState } from 'react';
+
 const projects = [
   {
     id: 1,
@@ -38,21 +40,120 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [activeCard, setActiveCard] = useState(0);
+
+  // Keep the dots in step with a native scroll-snap swipe
+  const handleScroll = () => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    const card = scroller.firstElementChild as HTMLElement | null;
+    if (!card) return;
+
+    const stride = card.offsetWidth + 16; // card + gap-4
+    setActiveCard(Math.round(scroller.scrollLeft / stride));
+  };
+
+  const goToCard = (index: number) => {
+    const scroller = scrollerRef.current;
+    const card = scroller?.firstElementChild as HTMLElement | null;
+    if (!scroller || !card) return;
+
+    scroller.scrollTo({ left: index * (card.offsetWidth + 16), behavior: 'smooth' });
+  };
+
   return (
-    <section id="projects" className="relative px-6 py-24">
-      <div className="container mx-auto max-w-6xl">
+    <section id="projects" className="relative scroll-mt-24 py-16 md:py-24">
+      <div className="container mx-auto max-w-6xl px-5 md:px-6">
         {/* Section header */}
-        <div className="mb-16 space-y-4 md:text-right">
+        <div className="mb-8 space-y-3 md:mb-16 md:space-y-4 md:text-right">
           <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-accent">
             Cool Stuff
           </span>
-          <h2 className="font-syne text-4xl font-bold tracking-tight md:text-6xl">
+          <h2 className="font-syne text-3xl font-bold tracking-tight sm:text-4xl md:text-6xl">
             My <span className="fluid-text">Projects</span>
           </h2>
         </div>
+      </div>
 
-        {/* Project panels */}
-        <div className="space-y-6">
+      {/* Mobile: swipeable deck. Full-bleed so cards bleed off both edges,
+          which is what signals "there's more this way". */}
+      <div className="md:hidden">
+        <div
+          ref={scrollerRef}
+          onScroll={handleScroll}
+          className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2"
+        >
+          {projects.map((project, index) => (
+            <article
+              key={project.id}
+              className="glass relative flex w-[82vw] max-w-sm shrink-0 snap-center flex-col overflow-hidden rounded-[1.75rem] p-6"
+            >
+              <div
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${project.color} opacity-70`}
+              />
+
+              <div className="relative z-10 flex flex-1 flex-col">
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <span className="font-space text-xs text-accent">{project.category}</span>
+                  <span className="font-syne text-3xl font-bold text-foreground/10">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <h3 className="font-syne text-2xl font-bold leading-tight tracking-tight">
+                  {project.title}
+                </h3>
+
+                <span className="mt-1.5 font-space text-xs text-muted-foreground">
+                  {project.year}
+                </span>
+
+                <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
+                  {project.description}
+                </p>
+
+                {/* Cap the chips so every card keeps the same rhythm */}
+                <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                  {project.tags.slice(0, 5).map((tag) => (
+                    <span
+                      key={tag}
+                      className="glass-subtle rounded-full px-2.5 py-1 font-space text-[11px] text-foreground/80"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {project.tags.length > 5 && (
+                    <span className="glass-subtle rounded-full px-2.5 py-1 font-space text-[11px] text-muted-foreground">
+                      +{project.tags.length - 5}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Progress dots */}
+        <div className="mt-5 flex items-center justify-center gap-2">
+          {projects.map((project, index) => (
+            <button
+              key={project.id}
+              onClick={() => goToCard(index)}
+              aria-label={`Go to project ${index + 1}: ${project.title}`}
+              aria-current={activeCard === index ? 'true' : undefined}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeCard === index
+                  ? 'w-6 bg-gradient-to-r from-primary to-accent'
+                  : 'w-1.5 bg-foreground/20'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: stacked panels */}
+      <div className="container mx-auto hidden max-w-6xl space-y-6 px-6 md:block">
           {projects.map((project, index) => (
             <article
               key={project.id}
@@ -109,7 +210,6 @@ const ProjectsSection = () => {
             </article>
           ))}
         </div>
-      </div>
     </section>
   );
 };

@@ -1,4 +1,5 @@
-import { Building2, Calendar, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { Building2, Calendar, ChevronDown, MapPin } from 'lucide-react';
 import { SiChase } from 'react-icons/si';
 import { FaAmazon } from 'react-icons/fa';
 import { SiHandshake } from 'react-icons/si';
@@ -75,22 +76,116 @@ const experiences = [
   },
 ];
 
-const WorkExperienceSection = () => {
+type Experience = (typeof experiences)[number];
+
+/**
+ * Mobile card. Collapsed it shows just company / role / period, so all five
+ * roles fit on one screen; tapping expands the detail in place.
+ */
+const ExperienceCard = ({
+  experience,
+  isOpen,
+  onToggle,
+}: {
+  experience: Experience;
+  isOpen: boolean;
+  onToggle: () => void;
+}) => {
+  const Logo = experience.logo ?? Building2;
+  const panelId = `experience-panel-${experience.id}`;
+
   return (
-    <section id="work" className="relative px-6 py-24">
+    <div className="glass overflow-hidden rounded-3xl">
+      <button
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className="flex w-full items-center gap-3 p-4 text-left"
+      >
+        <span className="glass-subtle flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-primary">
+          <Logo className="h-[18px] w-[18px]" />
+        </span>
+
+        <span className="min-w-0 flex-1">
+          <span className="block font-space text-xs font-medium text-primary">
+            {experience.company}
+          </span>
+          {/* Wraps rather than truncates — the role is the point of the row */}
+          <span className="block font-syne text-base font-bold leading-snug">
+            {experience.role}
+          </span>
+          <span className="mt-0.5 block font-space text-[11px] text-muted-foreground">
+            {experience.period}
+          </span>
+        </span>
+
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-500 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
+
+      <div id={panelId} className="collapse-grid px-4" data-open={isOpen}>
+        <div className="overflow-hidden">
+          <div className="space-y-3 pb-4">
+            <span className="flex items-center gap-1.5 font-space text-xs text-muted-foreground">
+              <MapPin className="h-3 w-3" />
+              {experience.location}
+            </span>
+
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {experience.description}
+            </p>
+
+            <div className="flex flex-wrap gap-1.5">
+              {experience.technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="glass-subtle rounded-full px-2.5 py-1 font-space text-[11px] text-foreground/80"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const WorkExperienceSection = () => {
+  // Newest role starts open so the section never reads as a wall of closed rows
+  const [openId, setOpenId] = useState<number | null>(experiences[0].id);
+
+  return (
+    <section id="work" className="relative scroll-mt-24 px-5 py-16 md:px-6 md:py-24">
       <div className="container mx-auto max-w-6xl">
         {/* Section header */}
-        <div className="mb-16 space-y-4">
+        <div className="mb-8 space-y-3 md:mb-16 md:space-y-4">
           <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-primary">
             Career Journey
           </span>
-          <h2 className="font-syne text-4xl font-bold tracking-tight md:text-6xl">
+          <h2 className="font-syne text-3xl font-bold tracking-tight sm:text-4xl md:text-6xl">
             Work <span className="fluid-text">Experience</span>
           </h2>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
+        {/* Mobile: tap-to-expand list */}
+        <div className="space-y-3 md:hidden">
+          {experiences.map((experience) => (
+            <ExperienceCard
+              key={experience.id}
+              experience={experience}
+              isOpen={openId === experience.id}
+              onToggle={() => setOpenId(openId === experience.id ? null : experience.id)}
+            />
+          ))}
+        </div>
+
+        {/* Desktop: alternating timeline */}
+        <div className="relative hidden md:block">
           <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-primary/60 via-accent/40 to-transparent md:left-1/2 md:-translate-x-1/2" />
 
           <div className="space-y-10">

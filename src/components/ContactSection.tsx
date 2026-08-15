@@ -74,21 +74,21 @@ const ContactSection = () => {
     'glass-input w-full rounded-2xl px-4 py-3 font-space text-foreground';
 
   return (
-    <section id="contact" className="relative px-6 py-24">
+    <section id="contact" className="relative scroll-mt-24 px-5 py-16 md:px-6 md:py-24">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           {/* Left column */}
-          <div className="space-y-8">
-            <div className="space-y-4">
+          <div className="space-y-6 md:space-y-8">
+            <div className="space-y-3 md:space-y-4">
               <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-accent">
                 Get in Touch
               </span>
-              <h2 className="font-syne text-4xl font-bold tracking-tight md:text-6xl">
+              <h2 className="font-syne text-3xl font-bold tracking-tight sm:text-4xl md:text-6xl">
                 Let&apos;s Create <span className="fluid-text">Together</span>
               </h2>
             </div>
 
-            <p className="max-w-md text-lg leading-relaxed text-muted-foreground">
+            <p className="max-w-md leading-relaxed text-muted-foreground md:text-lg">
               Have a project in mind? I&apos;d love to hear about it. Let&apos;s discuss how we can
               bring your ideas to life with fluid, engaging design.
             </p>
@@ -133,9 +133,9 @@ const ContactSection = () => {
           </div>
 
           {/* Right column — form */}
-          <div className="glass-strong rounded-[2rem] p-6 md:p-10">
-            <form className="space-y-5" onSubmit={handleSubmit}>
-              <div className="grid gap-5 sm:grid-cols-2">
+          <div className="glass-strong rounded-[2rem] p-5 md:p-10">
+            <form className="space-y-4 md:space-y-5" onSubmit={handleSubmit}>
+              <div className="grid gap-4 sm:grid-cols-2 md:gap-5">
                 <div className="space-y-2">
                   <label htmlFor="name" className="font-space text-sm text-foreground/80">
                     Name

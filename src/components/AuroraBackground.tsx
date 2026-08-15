@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Blob = {
   className: string;
@@ -55,6 +55,7 @@ const AuroraBackground = () => {
   const glowRef = useRef<HTMLDivElement>(null);
   const frame = useRef<number | null>(null);
   const pointer = useRef({ x: 0, y: 0 });
+  const [pointerActive, setPointerActive] = useState(false);
 
   useEffect(() => {
     // Parallax is pointer-driven; skip it entirely for touch and for visitors
@@ -62,6 +63,11 @@ const AuroraBackground = () => {
     const finePointer = window.matchMedia('(pointer: fine)').matches;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!finePointer || reducedMotion) return;
+
+    // Only now is it safe to mount the glow. It is positioned purely by the
+    // transform below, so rendering it while tracking is disabled would park it
+    // permanently at the top-left corner.
+    setPointerActive(true);
 
     const render = () => {
       frame.current = null;
@@ -96,8 +102,10 @@ const AuroraBackground = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-      {/* Cursor spotlight */}
-      <div ref={glowRef} className="cursor-glow hidden md:block" style={{ left: 0, top: 0 }} />
+      {/* Cursor spotlight — mounted only once pointer tracking is running */}
+      {pointerActive && (
+        <div ref={glowRef} className="cursor-glow hidden md:block" style={{ left: 0, top: 0 }} />
+      )}
 
       {/* Aurora field — the color the glass panels refract */}
       {blobs.map((blob, index) => (
@@ -130,18 +138,23 @@ const AuroraBackground = () => {
         style={{ top: '80%', left: '42%', animationDelay: '-4s' }}
       />
 
-      {/* Grid — gives the glass something structural to distort */}
+      {/* Grid — the only high-frequency detail on the page, which is what gives
+          the glass panels something to actually refract. Kept near-subliminal:
+          a regular pattern on a smooth field is easy for the eye to lock onto,
+          so light mode (a wide, flat, near-white expanse) is cut hardest and
+          the cells are sparser than the panel radii to avoid reading as ruled
+          paper. Set both opacities to 0 to remove it entirely. */}
       <div
-        className="absolute inset-0 opacity-[0.035] dark:opacity-[0.045]"
+        className="absolute inset-0 opacity-[0.012] dark:opacity-[0.022]"
         style={{
           backgroundImage: `
-            linear-gradient(hsl(var(--foreground) / 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--foreground) / 0.5) 1px, transparent 1px)
+            linear-gradient(hsl(var(--foreground) / 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--foreground) / 0.4) 1px, transparent 1px)
           `,
-          backgroundSize: '72px 72px',
-          maskImage: 'radial-gradient(ellipse 100% 80% at 50% 40%, black 30%, transparent 85%)',
+          backgroundSize: '96px 96px',
+          maskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 12%, transparent 78%)',
           WebkitMaskImage:
-            'radial-gradient(ellipse 100% 80% at 50% 40%, black 30%, transparent 85%)',
+            'radial-gradient(ellipse 90% 70% at 50% 40%, black 12%, transparent 78%)',
         }}
       />
 

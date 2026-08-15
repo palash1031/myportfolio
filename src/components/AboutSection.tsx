@@ -19,21 +19,21 @@ const techStack = [
 
 const AboutSection = () => {
   return (
-    <section id="about" className="relative px-6 py-24">
+    <section id="about" className="relative scroll-mt-24 px-5 py-16 md:px-6 md:py-24">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid items-start gap-12 md:grid-cols-2 lg:gap-16">
+        <div className="grid items-start gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
           {/* Left — story */}
-          <div className="space-y-8">
-            <div className="space-y-4">
+          <div className="space-y-6 md:space-y-8">
+            <div className="space-y-3 md:space-y-4">
               <span className="glass-subtle inline-block rounded-full px-4 py-1.5 font-space text-xs uppercase tracking-widest text-primary">
                 About Me
               </span>
-              <h2 className="font-syne text-4xl font-bold tracking-tight md:text-5xl">
+              <h2 className="font-syne text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
                 I like developing <span className="fluid-text">Cool</span> Stuff
               </h2>
             </div>
 
-            <div className="glass space-y-5 rounded-3xl p-6 leading-relaxed text-muted-foreground md:p-8">
+            <div className="glass space-y-4 rounded-3xl p-5 text-sm leading-relaxed text-muted-foreground md:space-y-5 md:p-8 md:text-base">
               <p>
                 I&apos;m a passionate Software Engineer with experience specializing in both front
                 and back-end development! I&apos;m interested in the intersection of finance and
@@ -63,21 +63,25 @@ const AboutSection = () => {
           </div>
 
           {/* Right — skills & stack */}
-          <div className="space-y-6">
-            <h3 className="font-syne text-xl font-semibold text-foreground/80">What I Do</h3>
+          <div className="space-y-5 md:space-y-6">
+            <h3 className="font-syne text-lg font-semibold text-foreground/80 md:text-xl">
+              What I Do
+            </h3>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3 md:gap-4">
               {skills.map((skill) => (
                 <div
                   key={skill.label}
-                  className="glass glass-hover group cursor-default rounded-3xl p-6"
+                  className="glass glass-hover group cursor-default rounded-3xl p-4 md:p-6"
                 >
-                  <div className="flex items-start gap-4">
-                    <span className="glass-subtle flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                  <div className="flex items-start gap-3.5 md:gap-4">
+                    <span className="glass-subtle flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground md:h-12 md:w-12">
                       <skill.icon className="h-5 w-5" />
                     </span>
                     <div>
-                      <h4 className="mb-1 font-syne text-lg font-semibold">{skill.label}</h4>
+                      <h4 className="mb-0.5 font-syne text-base font-semibold md:mb-1 md:text-lg">
+                        {skill.label}
+                      </h4>
                       <p className="text-sm text-muted-foreground">{skill.description}</p>
                     </div>
                   </div>
@@ -86,15 +90,15 @@ const AboutSection = () => {
             </div>
 
             {/* Tech stack */}
-            <div className="glass rounded-3xl p-6 md:p-8">
-              <h3 className="mb-4 font-syne text-xl font-semibold text-foreground/80">
+            <div className="glass rounded-3xl p-5 md:p-8">
+              <h3 className="mb-4 font-syne text-lg font-semibold text-foreground/80 md:text-xl">
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-2">
                 {techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="glass-subtle rounded-full px-3.5 py-1.5 font-space text-sm text-foreground/80 transition-colors duration-300 hover:text-primary"
+                    className="glass-subtle rounded-full px-3 py-1 font-space text-xs text-foreground/80 transition-colors duration-300 hover:text-primary md:px-3.5 md:py-1.5 md:text-sm"
                   >
                     {tech}
                   </span>

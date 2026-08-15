@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import Navigation from '@/components/Navigation';
+import MobileTabBar from '@/components/MobileTabBar';
 import AuroraBackground from '@/components/AuroraBackground';
+import FocalBlur from '@/components/FocalBlur';
 import HeroSection from '@/components/HeroSection';
 import WorkSection from '@/components/WorkSection';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -49,7 +51,16 @@ const Index = () => {
         <ContactSection />
       </main>
 
-      <Footer />
+      {/* Extra bottom room on mobile so the tab bar never covers the footer */}
+      <div className="pb-tabbar md:pb-0">
+        <Footer />
+      </div>
+
+      {/* Sits above the page (z-40) but under the chrome (z-50), so the nav and
+          tab bar stay perfectly sharp while content softens past them */}
+      <FocalBlur />
+
+      <MobileTabBar />
     </div>
   );
 };
