@@ -9,8 +9,8 @@ const experiences = [
     id: 1,
     title: 'J.P. Morgan',
     role: 'Software Engineer Intern',
-    description: 'I have accepted an offer to work as a Software Engineer Intern at J.P. Morgan for the summer of 2026 in Tampa Florida, stay tuned to see what I accomplish!',
-    technologies: ['N/A'],
+    description: 'Implemented a spec-driven development framework, "Spec-Kit" across J.P. Morgan Chase\'s Commercial & Investment Bank, improving developer efficiency and model grounding by embedding a strict, guardrail-backed development workflow.\nBuilt an automated evaluation pipeline in Python that benchmarks AI agents on output quality and token efficiency, gating agent and skills runs against accuracy, hallucinations, and token usage to block underperforming agents and skills.',
+    technologies: ['Python', 'AI', 'YAML', 'Jenkins', 'CI/CD'],
     color: 'from-primary/20 to-accent/20',
     year: 'June 2026 - August 2026',
     location: 'Tampa, Florida',
@@ -23,8 +23,8 @@ const experiences = [
     title: 'Amazon',
     category: 'Software Developer Engineer Intern',
     role: 'Software Developer Engineer Intern',
-    description: 'I have accepted an offer to work as a Software Developer Engineer Intern at Amazon in Seattle Washington, stay tuned to see what I accomplish!',
-    technologies: ['N/A'],
+    description: 'Worked on Amazon\'s BigMesh team to create customer-facing alarms to monitor and detect issues on production environments to help differentiate customer server issues from issues within BigMesh.\nBuilt and deployed an end-to-end monitoring system, creating 50K+ alarms across 13K VPCs, 37K Auto Scaling Groups, and 400K+ endpoints/FQDNs, improving system observability and reducing issue detection time by 76%.',
+    technologies: ['Java', 'TypeScript', 'AWS Console', 'Networking'],
     color: 'from-primary/20 to-accent/20',
     year: 'Jan 2026 - Present',
     location: 'Seattle, Washington',
@@ -134,7 +134,9 @@ const ExperienceCard = ({
               {experience.location}
             </span>
 
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            {/* pre-line so the \n between achievements renders as a break
+                instead of collapsing into a run-on paragraph */}
+            <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
               {experience.description}
             </p>
 
@@ -247,7 +249,7 @@ const WorkExperienceSection = () => {
                         </span>
                       </div>
 
-                      <p className="leading-relaxed text-muted-foreground">
+                      <p className="whitespace-pre-line leading-relaxed text-muted-foreground">
                         {experience.description}
                       </p>
 
