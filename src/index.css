@@ -49,6 +49,8 @@
     --fluid-cyan: 194 88% 58%;
     --fluid-peach: 26 92% 68%;
     --fluid-coral: 8 84% 64%;
+    --fluid-gold: 50 95% 72%;
+    --fluid-volt: 65 100% 50%;
     --fluid-cream: 32 60% 96%;
     --fluid-charcoal: 222 24% 16%;
     --fluid-deep: 224 40% 8%;
@@ -114,10 +116,14 @@
 
     /* Cursor spotlight. Warm on purpose: the aurora's mass is cool (a 38rem
        blue blob plus a 30rem cyan one), so a warm glow is the one hue that
-       stays legible against the dominant field at low alpha. */
-    --cursor-glow-core: hsl(var(--fluid-coral) / 0.25);
-    --cursor-glow-mid: hsl(var(--fluid-peach) / 0.16);
-    --cursor-glow-edge: hsl(var(--fluid-peach) / 0.11);
+       stays legible against the dominant field at low alpha. Volt core easing
+       out through gold — the halo stays in the yellow family because a
+       chartreuse core fading into orange/peach turns muddy where they meet.
+       Alpha is far lower than the old gold core: volt sits ~1.9x further from
+       the page background, so it needs much less of itself. */
+    --cursor-glow-core: hsl(var(--fluid-volt) / 0.19);
+    --cursor-glow-mid: hsl(var(--fluid-gold) / 0.16);
+    --cursor-glow-edge: hsl(var(--fluid-gold) / 0.10);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -163,6 +169,11 @@
     --fluid-cyan: 190 92% 62%;
     --fluid-peach: 26 92% 72%;
     --fluid-coral: 10 86% 68%;
+    /* Deliberately not lightened like the tokens above: `screen` already lifts
+       these in dark mode, so brightness is controlled by alpha alone and the
+       two knobs don't fight each other. */
+    --fluid-gold: 50 95% 72%;
+    --fluid-volt: 65 100% 50%;
     --fluid-cream: 32 40% 92%;
     --fluid-charcoal: 224 30% 12%;
     --fluid-deep: 224 42% 5%;
@@ -199,11 +210,11 @@
 
     --shadow-soft: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 
-    /* Runs a touch stronger than light mode because it blends with `screen`,
-       which adds light rather than laying colour over the backdrop. */
-    --cursor-glow-core: hsl(var(--fluid-coral) / 0.2);
-    --cursor-glow-mid: hsl(var(--fluid-peach) / 0.11);
-    --cursor-glow-edge: hsl(var(--fluid-peach) / 0.04);
+    /* Volt has zero blue, so `screen` lifts only R and G here — a pure neon
+       yellow-green bloom against the navy backdrop. */
+    --cursor-glow-core: hsl(var(--fluid-volt) / 0.19);
+    --cursor-glow-mid: hsl(var(--fluid-gold) / 0.1);
+    --cursor-glow-edge: hsl(var(--fluid-gold) / 0.04);
 
     /* On dark, the bright ramp already has plenty of contrast */
     --gradient-text: linear-gradient(
